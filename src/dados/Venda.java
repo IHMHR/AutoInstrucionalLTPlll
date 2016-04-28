@@ -18,9 +18,9 @@ public class Venda {
 	private int numVenda;
 	private Cliente cliente;
 	private GregorianCalendar dataVenda;
-	private ArrayList<itemVenda> vendaItens;
+	private ArrayList<ItemVenda> vendaItens;
 	
-	public Venda(Cliente cliente, GregorianCalendar dataVenda, ArrayList<itemVenda> vendaItens) {
+	public Venda(Cliente cliente, GregorianCalendar dataVenda, ArrayList<ItemVenda> vendaItens) {
 		super();
 		this.numVenda = sequentialId;
 		this.cliente = cliente;
@@ -44,11 +44,11 @@ public class Venda {
 		this.dataVenda = dataVenda;
 	}
 
-	public ArrayList<itemVenda> getVendaItens() {
+	public ArrayList<ItemVenda> getVendaItens() {
 		return vendaItens;
 	}
 
-	public void setVendaItens(ArrayList<itemVenda> vendaItens) {
+	public void setVendaItens(ArrayList<ItemVenda> vendaItens) {
 		this.vendaItens = vendaItens;
 	}
 
