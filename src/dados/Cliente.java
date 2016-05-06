@@ -18,14 +18,14 @@ public class Cliente {
 	private GregorianCalendar dataInclusao;
 	private GregorianCalendar dataUltAlteracao;
 	
-	public Cliente(String cpf, String nome, String telefone, String email, GregorianCalendar dataInclusao, GregorianCalendar dataUltAlteracao) {
+	public Cliente(String cpf, String nome, String telefone, String email) {
 		super();
 		this.cpf = cpf;
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.dataInclusao = dataInclusao;
-		this.dataUltAlteracao = dataUltAlteracao;
+		this.dataInclusao = (GregorianCalendar) new GregorianCalendar().getInstance();
+		this.dataUltAlteracao = null;
 	}
 
 	public String getCpf() {
