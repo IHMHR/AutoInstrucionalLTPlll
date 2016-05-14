@@ -20,13 +20,13 @@ public class Produto {
 	private GregorianCalendar dataInclusao;
 	private GregorianCalendar dataUltAlteracao;
 	
-	public Produto(String nome, double precoUnitario, GregorianCalendar dataInclusao, GregorianCalendar dataUltAlteracao) {
+	public Produto(String nome, double precoUnitario) {
 		super();
 		this.codigo = ++sequentialId; 
 		this.nome = nome;
 		this.precoUnitario = precoUnitario;
-		this.dataInclusao = dataInclusao;
-		this.dataUltAlteracao = dataUltAlteracao;
+		this.dataInclusao = (GregorianCalendar) new GregorianCalendar().getInstance();
+		this.dataUltAlteracao = null;
 	}
 
 	public String getNome() {

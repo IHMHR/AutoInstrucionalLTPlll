@@ -8,6 +8,8 @@ import java.util.GregorianCalendar;
 
 import cadastro.Cadastro;
 import dados.Cliente;
+import dados.Produto;
+import erros.SisVendasException;
 import utilitarios.Console;
 import utilitarios.LtpUtil;
 
@@ -22,41 +24,52 @@ public class Usuario {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		switch (Menu()) {
-		case 1:
-			//Novo Cliente
-			novoCliente();
-			break;
-		case 2:	
-			//Alterar Cliente via CPF
-			alterarCliente(Console.readLine("Informe o Cpf: "));
-			break;
-		case 33:
-			//Excluir Cliente
-			excluirCliente(Console.readLine("Informe o Cpf: "));
-			break;
-		case 4:
-			System.out.println("4");
-			break;
-		case 5:
-			System.out.println("5");
-			break;
-		case 6:
-			System.out.println("6");
-			break;
-		case 7:
-			System.out.println("7");
-			break;
-		case 8:
-			System.out.println("8");
-			break;
-		case 9:
-			System.out.println("9");
-			break;
-		case 10:
-			//Sair
-			System.exit(0);
-			break;
+		try {
+			while(true) {
+				switch (Menu()) {
+				case 1:
+					//Novo Cliente
+					novoCliente();
+					break;
+				case 2:	
+					//Alterar Cliente
+					alterarCliente(Console.readLine("Informe o Cpf: "));
+					break;
+				case 3:
+					//Excluir Cliente
+					excluirCliente(Console.readLine("Informe o Cpf: "));
+					break;
+				case 4:
+					//Novo Produto
+					novoProduto();
+					break;
+				case 5:
+					//Alterar Produto 
+					alterarProduto(Console.readInt("Informe o Código: "));
+					break;
+				case 6:
+					//Excluir Produto 
+					excluirProduto(Console.readInt("Informe o Código: "));
+					break;
+				case 7:
+					System.out.println("7");
+					break;
+				case 8:
+					System.out.println("8");
+					break;
+				case 9:
+					System.out.println("9");
+					break;
+				case 10:
+					break;
+				case 11:
+					//Sair
+					System.exit(0);
+					break;
+				}
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
 		}
 	}
 	
@@ -76,17 +89,18 @@ public class Usuario {
 			System.out.println("|* 4 - Incluir um novo produto                               *|");
 			System.out.println("|* 5 - Alterar o produto via código                          *|");
 			System.out.println("|* 6 - Excluir um produto via código                         *|");
+			System.out.println("|* 7 - Consultar produtos alfabéticamente pelo nome          *|");
 			System.out.println("|*************************************************************|");
 			System.out.println("|* Categoria: Venda                                          *|");
-			System.out.println("|* 7 - Incluir uma venda para um cliente                     *|");
-			System.out.println("|* 8 - Excluir uma venda de um cliente via código da venda   *|");
-			System.out.println("|* 9 - Consultar as vendas pelo período em ordem de cliente  *|");
+			System.out.println("|* 8 - Incluir uma venda para um cliente                     *|");
+			System.out.println("|* 9 - Excluir uma venda de um cliente via código da venda   *|");
+			System.out.println("|* 10 - Consultar as vendas pelo período em ordem de cliente *|");
 			System.out.println("|*                             e data da venda decrescente   *|");
 			System.out.println("|*************************************************************|");
-			System.out.println("|* 10 - Sair da aplicação                                    *|");
+			System.out.println("|* 11 - Sair da aplicação                                    *|");
 			System.out.println("|*************************************************************|");
 			op = Console.readInt("Informe o código da opção desejada: ");
-		} while (op < 1 || op > 10);
+		} while (op < 1 || op > 11);
 		
 		return op;
 	}
@@ -105,7 +119,7 @@ public class Usuario {
 		return resul;
 	}
 	
-	private static void novoCliente() {
+	private static void novoCliente() throws SisVendasException {
 		String cpf,nome,telefone,email;
 		do {
 			cpf = Console.readLine("Informe o CPF: ");
@@ -120,16 +134,65 @@ public class Usuario {
 			email = Console.readLine("Infome o E-mail: ");
 		} while (email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;"));
 		
-		cad.incluirCliente( new Cliente(cpf, nome, telefone, email));
+		if (cpf.equals(cad.clientePeloCPF(cpf)))
+			throw new SisVendasException("Cliente já cadastrado !");
+		else
+			cad.incluirCliente( new Cliente(cpf, nome, telefone, email));
 	}
 	
-	private static void alterarCliente(String cpf) {
-		if(LtpUtil.validarCPF(cpf))
-			//
+	private static void alterarCliente(String cpf) throws SisVendasException {
+		System.out.println(cad.clientePeloCPF(cpf));
+		String nome, telefone, email, ret;
+		do {
+			nome = Console.readLine("Infome o novo nome: ");
+		} while(LtpUtil.contarPalavras(nome) > 2);
+		do {
+			telefone = Console.readLine("Infome o novo telefone: ");
+		} while (!telefone.equals(null));
+		do {
+			email = Console.readLine("Infome o novo e-mail: ");
+		} while (email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;"));
+		
+		
+		if(LtpUtil.validarCPF(cpf) && cad.clientePeloCPF(cpf).equals(cpf) && )
+			cad.incluirCliente( new Cliente(cpf, nome, telefone, email));
 	}
 	
-	private static void excluirCliente(String cpf) {
-		if(LtpUtil.validarCPF(cpf))
-			cad.excluirCliente(cli);
+	private static void excluirCliente(String cpf) throws SisVendasException {
+		System.out.println(cad.clientePeloCPF(cpf));
+		if((Console.readLine("Efetuar a alteração? (s/n)").equalsIgnoreCase("S")) ? true : false)
+			cad.excluirCliente(Cliente);
+	}
+	
+	private static void novoProduto() {
+		String nome;
+		double preco;
+		do {
+			nome = Console.readLine("Informe o Nome: ");
+		} while (nome.equals(null));
+		do {
+			preco = Console.readDouble("Informe o preço: ");
+		} while (preco < 0);
+		
+		cad.incluirProduto( new Produto(nome, preco));
+	}
+	
+	private static void alterarProduto(Integer cod) throws SisVendasException {
+		System.out.println(cad.produtoPeloCod(cod));
+		String nome;		
+		double preco;
+		do {
+			nome = Console.readLine("Informe o novo nome: ");
+		} while (nome.equals(null));
+		do {
+			preco = Console.readDouble("Informe o novo preço: ");
+		} while (preco < 0);
+		
+		if ((Console.readLine("Efetuar a alteração? (s/n)").equalsIgnoreCase("S")) ? true : false)	
+			cad.incluirProduto( new Produto(nome, preco));
+	}
+	
+	private static void excluirProduto(Integer cod) {
+		cad.excluirProduto(pro);
 	}
 }
