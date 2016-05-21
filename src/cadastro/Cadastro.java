@@ -1,14 +1,13 @@
 /**
- * Classe para implementação do Cadastro
+ * Classe para implementaÃ§Ã£o do Cadastro
  */
 package cadastro;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import dados.Cliente;
+import dados.ItemVenda;
 import dados.Produto;
 import dados.Venda;
 import erros.SisVendasException;
@@ -16,12 +15,13 @@ import erros.SisVendasException;
 /**
  * @author Martinelli
  * @version 1.0.0.0
- * @category Acadêmico
+ * @category AcadÃªmico
  */
 public class Cadastro {	
 	public static HashMap<String, Cliente> clientes = new HashMap<String, Cliente>(); //CPF
 	public static HashMap<Integer, Produto> produtos = new HashMap<Integer, Produto>(); //Cod
 	public static HashMap<Integer, Venda> vendas = new HashMap<Integer, Venda>(); //Cod
+	public static ArrayList<ItemVenda> itensVenda = new ArrayList<ItemVenda>();
 	
 	public void incluirCliente(Cliente cli) {
 		clientes.put(cli.getCpf(), cli);
@@ -31,11 +31,11 @@ public class Cadastro {
 		clientes.remove(cli);
 	} 
 	
-	public ArrayList<Cliente> clientePeloCPF(String cpf) throws SisVendasException {
+	public Cliente clientePeloCPF(String cpf) throws SisVendasException {
 		if (clientes.containsKey(cpf)) {
-			return (ArrayList<Cliente>) clientes.values();
+			return clientes.get(cpf);
 		} else {
-			throw new SisVendasException("Não existe cliente para o cpf");
+			throw new SisVendasException("NÃ£o existe cliente para o cpf");
 		}
 	}
 	
@@ -43,7 +43,7 @@ public class Cadastro {
 		if (clientes.containsValue(nome)) {
 			return (ArrayList<Cliente>) clientes.values();
 		} else {
-			throw new SisVendasException("Não existe nenhum cliente para o nome");
+			throw new SisVendasException("NÃ£o existe nenhum cliente para o nome");
 		}
 	}
 	
@@ -51,24 +51,30 @@ public class Cadastro {
 		produtos.put(pro.getCodigo(), pro);
 	}
 	
+	
 	public void excluirProduto(Produto pro) {
 		produtos.remove(pro);
 	} 
 	
-	public ArrayList<Produto> produtoPeloCod(Integer cod) throws SisVendasException {
+	public Produto produtoPeloCod(Integer cod) throws SisVendasException {
 		if (produtos.containsKey(cod)) {
-			return (ArrayList<Produto>) produtos.values();
+			return produtos.get(cod);
 		} else {
-			throw new SisVendasException("Não existe produto para o código");
+			throw new SisVendasException("NÃ£o existe produto para o cÃ³digo");
 		}
 	}
 	
 	public ArrayList<Produto> produtosAlfabeticamente(String nome) throws SisVendasException {
-		if (produtos.containsValue(nome)) {
-			return (ArrayList<Produto>) produtos.values();
-		} else {
-			throw new SisVendasException("Não existe nenhum produto para o nome");
+		ArrayList<Produto> prod = new ArrayList<Produto>();
+		for (Produto produto : produtos.values()) {
+			if (produto.getNome().contains(nome))
+				prod.add(produto);
 		}
+		
+		if(prod.isEmpty())
+			throw new SisVendasException("NÃ£o existe nenhum produto para o nome");
+		else
+			return prod;
 	}
 	
 	public void incluirVenda(Venda ven) {
@@ -76,14 +82,14 @@ public class Cadastro {
 	}
 	
 	public void excluirVenda(Venda ven) {
-		vendas.remove(ven);
+		vendas.remove(ven.getNumVenda());
 	} 
 	
-	public ArrayList<Venda> vendaPeloCod(Integer cod) throws SisVendasException {
+	public Venda vendaPeloCod(Integer cod) throws SisVendasException {
 		if (vendas.containsKey(cod)) {
-			return (ArrayList<Venda>) vendas.values();
+			return vendas.get(cod);
 		} else {
-			throw new SisVendasException("Não existe venda para o código");
+			throw new SisVendasException("NÃ£o existe venda para o cÃ³digo");
 		}
 	}
 	
@@ -99,7 +105,7 @@ public class Cadastro {
 		if(retorno.equals(null))
 			return retorno;
 		else
-			throw new SisVendasException("Não existe nenhuma venda para o cliente");
+			throw new SisVendasException("NÃ£o existe nenhuma venda para o cliente");
 	}
 	
 	public ArrayList<Venda> vendasPorPeriodoOrderNomeDataDesc(GregorianCalendar inicio, GregorianCalendar termino)	{
@@ -129,5 +135,9 @@ public class Cadastro {
 		}
 		
 		return String.format("Cliente: {0}\nQuantidade que comprou: {1}\nTotal das compras: {2}", nome, cont, total);	
+	}
+	
+	public static void IncluirItemVenda(ItemVenda item){
+		itensVenda.add(item);
 	}
 }
