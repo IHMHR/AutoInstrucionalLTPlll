@@ -1,19 +1,23 @@
 /**
- * Classe para implementação da Tratativa de Erros
+ * Classe para implementaÃ§Ã£o da Tratativa de Erros
  */
 package erros;
 
 /**
  * @author Martinelli
  * @version 1.0.0.0
- * @category Acadêmico
+ * @category AcadÃªmico
  */
+@SuppressWarnings("serial")
 public class SisVendasException extends Exception {
 
 	public SisVendasException() {
 		super();
 	}
 
+	/**
+	 * @param message
+	 */
 	public SisVendasException(String message) {
 		super(message);
 	}
