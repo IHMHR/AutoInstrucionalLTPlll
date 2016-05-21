@@ -6,6 +6,8 @@ package dados;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+import utilitarios.LtpUtil;
+
 /**
  * @author Martinelli
  * @version 1.0.0.0
@@ -16,18 +18,31 @@ public class Venda {
 	private static int sequentialId = 0;
 	
 	private int numVenda;
+	
+
 	private Cliente cliente;
 	private GregorianCalendar dataVenda;
 	private ArrayList<ItemVenda> vendaItens;
 	
-	public Venda(Cliente cliente, GregorianCalendar dataVenda, ArrayList<ItemVenda> vendaItens) {
+	/**
+	 * @param cliente
+	 * @param vendaItens
+	 */
+	public Venda(Cliente cliente, ArrayList<ItemVenda> vendaItens) {
 		super();
 		this.numVenda = sequentialId;
 		this.cliente = cliente;
-		this.dataVenda = dataVenda;
+		this.dataVenda = new GregorianCalendar();
 		this.vendaItens = vendaItens;
 	}
+	
+	public static int getSequentialId() {
+		return sequentialId;
+	}
 
+	public static void setSequentialId(int sequentialId) {
+		Venda.sequentialId = sequentialId;
+	}
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -58,6 +73,6 @@ public class Venda {
 
 	@Override
 	public String toString() {
-		return "Dados da Venda \nnumVenda=" + numVenda + ", cliente=" + cliente + ", dataVenda=" + dataVenda;
+		return String.format("Dados da Venda: Número da venda = %1$s, Cliente = %2$s, Data da Venda = %3$s", numVenda, cliente.getNome(), LtpUtil.formatarData(dataVenda, "dd/MM/yyyy"));
 	}
 }

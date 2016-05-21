@@ -56,6 +56,6 @@ public class ItemVenda {
 
 	@Override
 	public String toString() {
-		return "Dados dos Itens da Venda produto=" + produto + ", precoUnitario=" + precoUnitario + ", quantVenda=" + quantVenda + ", valorVenda=" + valorVenda;
+		return String.format("Dados dos Itens da Venda: Produto = %1$s, Preço Unitário = %2$s, Quantidade Venda = %3$s, Valor Venda = %4$s", produto, precoUnitario, quantVenda, valorVenda);
 	}
 }

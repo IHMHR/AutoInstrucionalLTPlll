@@ -5,6 +5,8 @@ package dados;
 
 import java.util.GregorianCalendar;
 
+import utilitarios.LtpUtil;
+
 /**
  * @author Martinelli
  * @version 1.0.0.0
@@ -24,7 +26,7 @@ public class Cliente {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.email = email;
-		this.dataInclusao = (GregorianCalendar) new GregorianCalendar().getInstance();
+		this.dataInclusao = new GregorianCalendar();
 		this.dataUltAlteracao = null;
 	}
 
@@ -78,6 +80,7 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Dados do Cliente \ncpf=" + cpf + ", nome=" + nome + ", telefone=" + telefone + ", email=" + email + ", dataInclusao=" + dataInclusao + ", dataUltAlteracao=" + dataUltAlteracao;
+		return String.format("Dados do cliente: Nome = %1$s, Cpf = %2$s, Telefone = %3$s, Email = %4$s, Data de Inclusão = %5$s, Data de Alteração = %6$s",
+				nome, cpf, telefone, email, LtpUtil.formatarData(dataInclusao, "dd/MM/yyyy"), LtpUtil.formatarData(dataUltAlteracao, "dd/MM/yyyy"));
 	}
 }

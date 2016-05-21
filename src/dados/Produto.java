@@ -5,6 +5,8 @@ package dados;
 
 import java.util.GregorianCalendar;
 
+import utilitarios.LtpUtil;
+
 /**
  * @author Martinelli
  * @version 1.0.0.0
@@ -25,7 +27,7 @@ public class Produto {
 		this.codigo = ++sequentialId; 
 		this.nome = nome;
 		this.precoUnitario = precoUnitario;
-		this.dataInclusao = (GregorianCalendar) new GregorianCalendar().getInstance();
+		this.dataInclusao = new GregorianCalendar();
 		this.dataUltAlteracao = null;
 	}
 
@@ -43,6 +45,14 @@ public class Produto {
 
 	public void setPrecoUnitario(double precoUnitario) {
 		this.precoUnitario = precoUnitario;
+	}
+
+	public static int getSequentialId() {
+		return sequentialId;
+	}
+
+	public static void setSequentialId(int sequentialId) {
+		Produto.sequentialId = sequentialId;
 	}
 
 	public GregorianCalendar getDataInclusao() {
@@ -67,6 +77,6 @@ public class Produto {
 
 	@Override
 	public String toString() {
-		return "Dados do Produto \ncodigo=" + codigo + ", nome=" + nome + ", precoUnitario=" + precoUnitario + ", dataInclusao="+ dataInclusao + ", dataUltAlteracao=" + dataUltAlteracao;
+		return String.format("Dados do Produto: Código = %1$s, Nome = %2$s, Preço Unitário = %3$s, Data de Inclusão = %4$s, Data de Alteração = %4$s", codigo, nome, precoUnitario, LtpUtil.formatarData(dataInclusao, "dd/MM/yyyy"), LtpUtil.formatarData(dataUltAlteracao, "dd/MM/yyyy"));
 	}
 }
