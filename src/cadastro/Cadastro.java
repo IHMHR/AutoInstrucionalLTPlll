@@ -1,5 +1,5 @@
 /**
- * Classe para implementa√ß√£o do Cadastro
+ * Classe para implementa√ß„o do Cadastro
  */
 package cadastro;
 
@@ -48,7 +48,7 @@ public class Cadastro {
 		if (clientes.containsKey(cpf)) {
 			return clientes.get(cpf);
 		} else {
-			throw new SisVendasException("N√£o existe cliente para o cpf");
+			throw new SisVendasException("N„o existe cliente para o cpf");
 		}
 	}
 	
@@ -61,7 +61,7 @@ public class Cadastro {
 		if (clientes.containsValue(nome)) {
 			return (ArrayList<Cliente>) clientes.values();
 		} else {
-			throw new SisVendasException("N√£o existe nenhum cliente para o nome");
+			throw new SisVendasException("N„o existe nenhum cliente para o nome");
 		}
 	}
 	
@@ -89,7 +89,7 @@ public class Cadastro {
 		if (produtos.containsKey(cod)) {
 			return produtos.get(cod);
 		} else {
-			throw new SisVendasException("N√£o existe produto para o c√≥digo");
+			throw new SisVendasException("N„o existe produto para o cÛdigo");
 		}
 	}
 	
@@ -106,7 +106,7 @@ public class Cadastro {
 		}
 		
 		if(prod.isEmpty())
-			throw new SisVendasException("N√£o existe nenhum produto para o nome");
+			throw new SisVendasException("N„o existe nenhum produto para o nome");
 		else
 			return prod;
 	}
@@ -134,7 +134,7 @@ public class Cadastro {
 		if (vendas.containsKey(cod)) {
 			return vendas.get(cod);
 		} else {
-			throw new SisVendasException("N√£o existe venda para o c√≥digo");
+			throw new SisVendasException("N„o existe venda para o cÛdigo");
 		}
 	}
 	
@@ -150,7 +150,7 @@ public class Cadastro {
 		if(retorno.equals(null))
 			return retorno;
 		else
-			throw new SisVendasException("N√£o existe nenhuma venda para o cliente");
+			throw new SisVendasException("N„o existe nenhuma venda para o cliente");
 	}
 	
 	public ArrayList<Venda> vendasPorPeriodoOrderNomeDataDesc(GregorianCalendar inicio, GregorianCalendar termino)	{

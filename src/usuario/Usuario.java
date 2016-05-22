@@ -1,5 +1,5 @@
 /**
- * Classe de intera√ß√£o com o Usu√°rio
+ * Classe de interaÁ„o com o Usu√°rio
  */
 package usuario;
 
@@ -28,6 +28,11 @@ public class Usuario {
 	 */
 	public static void main(String[] args) {
 		try {
+			//Leitura arquivos
+			lerListaCliente();
+			lerListaProduto();
+			lerListaVenda();
+			
 			while(true) {
 				switch (Menu()) {
 				case 1:
@@ -48,11 +53,11 @@ public class Usuario {
 					break;
 				case 5:
 					//Alterar Produto 
-					alterarProduto(Console.readInt("Informe o C√≥digo: "));
+					alterarProduto(Console.readInt("Informe o CÛdigo: "));
 					break;
 				case 6:
 					//Excluir Produto 
-					excluirProduto(Console.readInt("Informe o C√≥digo: "));
+					excluirProduto(Console.readInt("Informe o CÛdigo: "));
 					break;
 				case 7:
 					//Consultar Produtos Alfabeticamente
@@ -63,8 +68,8 @@ public class Usuario {
 					IncluirVendaCliente(Console.readLine("Informe o Cpf do Cliente que esta realizando a venda:").trim().replace(".", "").replace("-", ""));
 					break;
 				case 9:
-					//Excluir venda de cliente por c√≥digo da venda
-					ExcluirVenda(Console.readInt("Informe o c√≥digo da venda: "));
+					//Excluir venda de cliente por cÛdigo da venda
+					ExcluirVenda(Console.readInt("Informe o cÛdigo da venda: "));
 					break;
 				case 10:
 					//Consultar vendas pelo per√≠odo em ordem de cliente e data da venda decrescente
@@ -80,20 +85,25 @@ public class Usuario {
 					break;
 				}
 			}
+			
+			//salvar informaÁıes
+			gravarCliente();
+			gravarProduto();
+			gravarVenda();
 		} catch (SisVendasException  e) {
 			System.err.println(e.getMessage().toString());
 		}
 	}
 
 	/**
-	 * @return op√ß√£o escolhida pelo usu√°rio
+	 * @return opÁ„o escolhida pelo usu√°rio
 	 */
 	private static int Menu() {
 		int op = -1;
 		try {
 			/*Clientes (incluir um novo cliente, alterar o cliente via cpf, excluir um cliente via cpf)
-			 Produtos (incluir um novo produto, alterar o produto via c√≥digo, excluir um produto via c√≥digo)
-			 Vendas (incluir uma venda para um cliente, excluir uma venda de um cliente via c√≥digo da venda, consultar as vendas pelo per√≠odo em ordem de cliente e data da venda decrescente)*/
+			 Produtos (incluir um novo produto, alterar o produto via cÛdigo, excluir um produto via cÛdigo)
+			 Vendas (incluir uma venda para um cliente, excluir uma venda de um cliente via cÛdigo da venda, consultar as vendas pelo per√≠odo em ordem de cliente e data da venda decrescente)*/
 			do {
 				System.out.println("|*************************************************************|");
 				System.out.println("|* Categoria: Cliente                                        *|");
@@ -103,26 +113,26 @@ public class Usuario {
 				System.out.println("|*************************************************************|");
 				System.out.println("|* Categoria: Produto                                        *|");
 				System.out.println("|* 4 - Incluir um novo produto                               *|");
-				System.out.println("|* 5 - Alterar o produto via c√≥digo                          *|");
-				System.out.println("|* 6 - Excluir um produto via c√≥digo                         *|");
-				System.out.println("|* 7 - Consultar produtos alfab√©ticamente pelo nome          *|");
+				System.out.println("|* 5 - Alterar o produto via cÛdigo                          *|");
+				System.out.println("|* 6 - Excluir um produto via cÛdigo                         *|");
+				System.out.println("|* 7 - Consultar produtos alfabÈticamente pelo nome          *|");
 				System.out.println("|*************************************************************|");
 				System.out.println("|* Categoria: Venda                                          *|");
 				System.out.println("|* 8 - Incluir uma venda para um cliente                     *|");
-				System.out.println("|* 9 - Excluir uma venda de um cliente via c√≥digo da venda   *|");
-				System.out.println("|* 10 - Consultar as vendas pelo per√≠odo em ordem de cliente *|");
+				System.out.println("|* 9 - Excluir uma venda de um cliente via cÛdigo da venda   *|");
+				System.out.println("|* 10 - Consultar as vendas pelo perÌodo em ordem de cliente *|");
 				System.out.println("|*                             e data da venda decrescente   *|");
 				System.out.println("|*************************************************************|");
-				System.out.println("|* 11 - Sair da aplica√ß√£o                                    *|");
+				System.out.println("|* 11 - Sair da aplicaÁ„o                                    *|");
 				System.out.println("|*************************************************************|");
-				op = Console.readInt("Informe o c√≥digo da op√ß√£o desejada: ");
+				op = Console.readInt("Informe o cÛdigo da opÁ„o desejada: ");
 			} while (op < 1 || op > 11);
 		} catch (Exception  e) {
 			System.err.println(e.getMessage().toString());
 		}
 		return op;
 	}
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	@SuppressWarnings("unchecked")
 	public static void lerListaCliente(){
 		try{
@@ -235,8 +245,11 @@ public class Usuario {
 			
 			//if (cpf.equals(cad.clientePeloCPF(cpf).getCpf()))
 			//if (cpf.equals(cad.clientePeloCPF(cpf).getCpf().equals(null) ? "12345678912" : cad.clientePeloCPF(cpf).getCpf()))
-			if (cad.clientePeloCPF(cpf).getCpf().equals("N√£o existe cliente para o cpf"))
-				throw new SisVendasException("Cliente j√° cadastrado !");
+			//if (cad.clientePeloCPF(cpf).getCpf().equals("N„o existe cliente para o cpf"))
+			//if (cad.clientePeloCPF(cpf).getCpf().equals(cpf))
+			//if (cad.clientePeloCPF(cpf) != null)
+			if (cad.clientes.containsKey(cpf))
+				throw new SisVendasException("Cliente j· cadastrado !");
 			else
 				cad.incluirCliente( new Cliente(cpf, nome, telefone, email));
 		} catch (SisVendasException  e) {
@@ -248,6 +261,7 @@ public class Usuario {
 	 * @param cpf
 	 * @throws SisVendasException
 	 */
+	@SuppressWarnings("static-access")
 	private static void alterarCliente(String cpf) throws SisVendasException {
 		try {
 			Cliente cli = cad.clientePeloCPF(cpf);
@@ -263,13 +277,14 @@ public class Usuario {
 				email = Console.readLine("Infome o novo e-mail: ");
 			} while (email.matches("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$;"));
 			
-			if(LtpUtil.validarCPF(cpf) && cad.clientePeloCPF(cpf).equals(cpf) && !cad.clientePeloCPF(cpf).equals(null)) {
+			if(LtpUtil.validarCPF(cpf) && cad.clientes.containsKey(cpf)/* && !cad.clientePeloCPF(cpf).equals(null)*/) {
 				cli.setDataUltAlteracao( new GregorianCalendar());
 				cli.setEmail(email);
 				cli.setNome(nome);
 				cli.setTelefone(telefone);
-				cad.excluirCliente(cli);
+				//cad.excluirCliente(cli);
 				cad.incluirCliente(cli);
+				cad.excluirCliente(cli);
 			}
 		} catch (SisVendasException  e) {
 			System.err.println(e.getMessage().toString());
@@ -283,7 +298,7 @@ public class Usuario {
 	private static void excluirCliente(String cpf) throws SisVendasException {
 		try {
 			System.out.println(cad.clientePeloCPF(cpf).toString());
-			if((Console.readLine("Efetuar a exclus√£o? (s/n)").equalsIgnoreCase("S")) ? true : false)
+			if((Console.readLine("Efetuar a exclus„o? (s/n)").equalsIgnoreCase("S")) ? true : false)
 				cad.excluirCliente(cad.clientePeloCPF(cpf));
 		} catch (SisVendasException  e) {
 			System.err.println(e.getMessage().toString());
@@ -298,7 +313,7 @@ public class Usuario {
 				nome = Console.readLine("Informe o Nome: ");
 			} while (nome.equals(null));
 			do {
-				preco = Console.readDouble("Informe o pre√ßo: ".replace(",", "."));
+				preco = Console.readDouble("Informe o preÁo: ".replace(",", "."));
 			} while (preco < 0);
 			
 			cad.incluirProduto( new Produto(nome, preco));
@@ -321,10 +336,10 @@ public class Usuario {
 				nome = Console.readLine("Informe o novo nome: ");
 			} while (nome.equals(null));
 			do {
-				preco = Console.readDouble("Informe o novo pre√ßo: ");
+				preco = Console.readDouble("Informe o novo preÁo: ");
 			} while (preco < 0);
 			
-			if ((Console.readLine("Efetuar a altera√ß√£o? (s/n)").equalsIgnoreCase("S")) ? true : false) {	
+			if ((Console.readLine("Efetuar a alteraÁ„o? (s/n)").equalsIgnoreCase("S")) ? true : false) {	
 				pro.setNome(nome);
 				pro.setDataUltAlteracao( new GregorianCalendar());
 				pro.setPrecoUnitario(preco);
@@ -343,7 +358,7 @@ public class Usuario {
 	private static void excluirProduto(Integer cod) throws SisVendasException {
 		try {
 			System.out.println(cad.produtoPeloCod(cod).toString());
-			if((Console.readLine("Efetuar a exclus√£o ? (s/n)").equalsIgnoreCase("S")) ? true : false)
+			if((Console.readLine("Efetuar a exclus„o ? (s/n)").equalsIgnoreCase("S")) ? true : false)
 				cad.excluirProduto(cad.produtoPeloCod(cod));
 		} catch (SisVendasException  e) {
 			System.err.println(e.getMessage().toString());
@@ -373,7 +388,7 @@ public class Usuario {
 		try {
 			int cod, qnt;
 			do {
-				cod = Console.readInt("Informe o c√≥digo do produto: ");
+				cod = Console.readInt("Informe o cÛdigo do produto: ");
 				Produto prod = cad.produtoPeloCod(cod);
 				do {
 					qnt = Console.readInt("Informe a quantidade para compra: ");
@@ -389,7 +404,7 @@ public class Usuario {
 	private static void ExcluirVenda(int cod) throws SisVendasException {
 		try {
 			System.out.println(cad.vendaPeloCod(cod).toString());
-			if(Console.readLine("Confirmar exclus√£o ? (S/N)").equalsIgnoreCase("S") ? true : false)
+			if(Console.readLine("Confirmar exclus„o ? (S/N)").equalsIgnoreCase("S") ? true : false)
 				cad.excluirVenda(cad.vendaPeloCod(cod));
 		} catch (SisVendasException e) {
 			System.err.println(e.getMessage().toString());
