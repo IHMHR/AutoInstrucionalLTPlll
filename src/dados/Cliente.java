@@ -3,6 +3,7 @@
  */
 package dados;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 import utilitarios.LtpUtil;
@@ -12,7 +13,7 @@ import utilitarios.LtpUtil;
  * @version 1.0.0.0
  * @category Acadêmico
  */
-public class Cliente {
+public class Cliente implements Serializable, Comparable<Cliente> {
 	private String cpf;
 	private String nome;
 	private String telefone;
@@ -82,5 +83,10 @@ public class Cliente {
 	public String toString() {
 		return String.format("Dados do cliente: Nome = %1$s, Cpf = %2$s, Telefone = %3$s, Email = %4$s, Data de Inclusão = %5$s, Data de Alteração = %6$s",
 				nome, cpf, telefone, email, LtpUtil.formatarData(dataInclusao, "dd/MM/yyyy"), LtpUtil.formatarData(dataUltAlteracao, "dd/MM/yyyy"));
+	}
+
+	@Override
+	public int compareTo(Cliente cli) {
+		return nome.compareTo(cli.nome);
 	}
 }

@@ -3,6 +3,7 @@
  */
 package dados;
 
+import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 import utilitarios.LtpUtil;
@@ -12,7 +13,7 @@ import utilitarios.LtpUtil;
  * @version 1.0.0.0
  * @category Acadêmico
  */
-public class Produto {
+public class Produto implements Serializable, Comparable<Produto> {
 	
 	private static int sequentialId = 0;
 	
@@ -78,5 +79,10 @@ public class Produto {
 	@Override
 	public String toString() {
 		return String.format("Dados do Produto: Código = %1$s, Nome = %2$s, Preço Unitário = %3$s, Data de Inclusão = %4$s, Data de Alteração = %4$s", codigo, nome, precoUnitario, LtpUtil.formatarData(dataInclusao, "dd/MM/yyyy"), LtpUtil.formatarData(dataUltAlteracao, "dd/MM/yyyy"));
+	}
+
+	@Override
+	public int compareTo(Produto pro) {
+		return nome.compareTo(pro.nome);
 	}
 }
