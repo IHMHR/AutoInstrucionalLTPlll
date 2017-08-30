@@ -1,3 +1,5 @@
+import utilitarios.LtpLib;
+
 public class Fornecedor extends Pessoa
 {
 	private String cnpj;
@@ -38,7 +40,6 @@ public class Fornecedor extends Pessoa
 	@Override
 	public String toString()
 	{
-		formartar cnpj
-		return super.toString() + "\nCnpj: " + cnpj + "\nNome do contato: " + nomeContato;
+		return super.toString() + "\nCnpj: " + LtpLib.formatarCNPJ(cnpj) + "\nNome do contato: " + nomeContato;
 	}
 }

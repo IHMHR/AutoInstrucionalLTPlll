@@ -1,3 +1,5 @@
+import utilitarios.LtpLib;
+
 public class Vendedor extends Pessoa
 {
 	private String cpf;
@@ -38,7 +40,6 @@ public class Vendedor extends Pessoa
 	@Override
 	public String toString()
 	{
-		formatar cpf
-		return super.toString() + "\nCpf: " + cpf + "\nMeta mensal: " + metaMensal;
+		return super.toString() + "\nCpf: " + LtpLib.formatarCPF(cpf) + "\nMeta mensal: " + metaMensal;
 	}
 }

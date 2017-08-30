@@ -1,5 +1,7 @@
 import java.util.GregorianCalendar;
 
+import utilitarios.LtpLib;
+
 public abstract class Pessoa implements Comparable<Pessoa>
 {
 	private static int gerador = 0;
@@ -81,8 +83,7 @@ public abstract class Pessoa implements Comparable<Pessoa>
 	@Override
 	public String toString()
 	{
-		formatar a data;
-		return "DADOS DO(A) " + nome + ":\nCodigo: " + codigo + "\nTelefones: " + telefones + "\nEmail: "	+ email + "\nData Cadastro: " + dataCad;	
+		return "DADOS DO(A) " + nome + ":\nCodigo: " + codigo + "\nTelefones: " + telefones + "\nEmail: "	+ email + "\nData Cadastro: " + LtpLib.formatarData(dataCad, "dd/MM/yyyy");	
 	}
 	
 	@Override

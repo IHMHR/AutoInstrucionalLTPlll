@@ -1,15 +1,17 @@
 import java.util.GregorianCalendar;
-import java.util.Vector;
+import java.util.List;
+
+import utilitarios.LtpLib;
 
 public class Compra
 {
 	private static int gerador = 0;
 	private int numCompra;
 	private Fornecedor fornecedor;
-	private Vector<ItemCompra> compraItens;
+	private List<ItemCompra> compraItens;
 	private GregorianCalendar dataCompra;
 	
-	public Compra(Fornecedor _fornecedor, ItemCompra _compraItens)
+	public Compra(Fornecedor _fornecedor, List<ItemCompra> _compraItens)
 	{
 		this.numCompra = ++gerador;
 		this.fornecedor = _fornecedor;
@@ -47,12 +49,12 @@ public class Compra
 		this.fornecedor = fornecedor;
 	}
 
-	public Vector<ItemCompra> getCompraItens()
+	public List<ItemCompra> getCompraItens()
 	{
 		return compraItens;
 	}
 
-	public void setCompraItens(Vector<ItemCompra> compraItens)
+	public void setCompraItens(List<ItemCompra> compraItens)
 	{
 		this.compraItens = compraItens;
 	}
@@ -74,7 +76,7 @@ public class Compra
 		for (ItemCompra ic : compraItens)
 		{
 			sb.append(ic.toString());
-		} formartar data
-		return "DADOS DA COMPRA:\nNumero da compra: " + numCompra + "\nFornecedor: " + fornecedor.toString() + "\n" + sb.toString() + "\nData da compra: " + dataCompra;
+		}
+		return "DADOS DA COMPRA:\nNumero da compra: " + numCompra + "\nFornecedor: " + fornecedor.toString() + "\n" + sb.toString() + "\nData da compra: " + LtpLib.formatarData(dataCompra, "dd/MM/yyyy");
 	}
 }

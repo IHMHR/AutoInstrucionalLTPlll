@@ -1,3 +1,5 @@
+import utilitarios.LtpLib;
+
 public class Cliente extends Pessoa
 {
 	private String cpf;
@@ -38,7 +40,6 @@ public class Cliente extends Pessoa
 	@Override
 	public String toString()
 	{
-		formatar cpf
-		return super.toString() + "\nCpf: " + cpf + "\nLimite de credito: " + limiteCredito;
+		return super.toString() + "\nCpf: " + LtpLib.formatarCPF(cpf) + "\nLimite de credito: " + limiteCredito;
 	}
 }

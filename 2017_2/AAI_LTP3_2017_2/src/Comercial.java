@@ -1,12 +1,13 @@
+import java.util.List;
 import java.util.Vector;
 
 public class Comercial
 {
     private static Comercial comercialClass = null;
-    private static Vector<Pessoa> pessoas = new Vector<Pessoa>();
-    private static Vector<Produto> produtos = new Vector<Produto>();
-    private static Vector<Compra> compras = new Vector<Compra>();
-    private static Vector<Venda> vendas = new Vector<Venda>();
+    private static List<Pessoa> pessoas = new Vector<Pessoa>();
+    private static List<Produto> produtos = new Vector<Produto>();
+    private static List<Compra> compras = new Vector<Compra>();
+    private static List<Venda> vendas = new Vector<Venda>();
     
     // Singleton Pattern
     private Comercial()
@@ -111,5 +112,14 @@ public class Comercial
             throw new IllegalArgumentException("Tipo de pessoa inválido");
         }
         pessoas.remove(p);
+    }
+    
+    public static void comprar(Fornecedor f, Vector<ItemCompra> itens)
+    {
+    	compras.add(new Compra(f, itens));
+    	for (ItemCompra ic : itens)
+    	{
+    		produtos.get(produtos.indexOf(ic.getProduto())).addEstoque(ic.getProduto().getCodigo());
+		}
     }
 }
