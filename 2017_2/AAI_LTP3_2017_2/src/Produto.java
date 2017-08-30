@@ -1,6 +1,6 @@
 import java.util.GregorianCalendar;
 
-public class Produto
+public class Produto implements Comparable<Produto>
 {
 	private static int gerador = 0;
 	private int codigo;
@@ -88,5 +88,34 @@ public class Produto
 	public void setDataCad(GregorianCalendar dataCad)
 	{
 		this.dataCad = dataCad;
+	}
+	
+	public int addEstoque(int quantidade)
+	{
+		return this.estoque += quantidade;
+	}
+	
+	public int removeEstoque(int quantidade) throws SisComException
+	{
+		if(this.estoque < quantidade)
+		{
+			throw new SisComException("O produto " + nome + " somente tem disponível " + estoque + ".\nEstoque Insuficiente.");
+		}
+		else
+		{
+			return this.estoque -= quantidade;
+		}
+	}
+
+	@Override
+	public int compareTo(Produto p)
+	{
+		return p.getNome().compareTo(nome);
+	}
+	
+	@Override
+	public String toString()
+	{
+		return "DADOS DO PRODUTO\nCodigo: " + codigo + "\nNome: " + nome + "\nPreço Unitario";
 	}
 }

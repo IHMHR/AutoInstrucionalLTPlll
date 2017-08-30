@@ -1,10 +1,12 @@
+import java.util.Vector;
+
 public class Comercial
 {
     private static Comercial comercialClass = null;
-    private Vector<Pessoa> pessoas = new Vector<Pessoa>();
-    private Vector<Produto> produtos = new Vector<Produto>();
-    private Vector<Compra> compras = new Vector<Compra>();
-    private Vector<Venda> vendas = new Vector<Venda>();
+    private static Vector<Pessoa> pessoas = new Vector<Pessoa>();
+    private static Vector<Produto> produtos = new Vector<Produto>();
+    private static Vector<Compra> compras = new Vector<Compra>();
+    private static Vector<Venda> vendas = new Vector<Venda>();
     
     // Singleton Pattern
     private Comercial()
@@ -20,42 +22,43 @@ public class Comercial
         return comercialClass;
     }
     
-    public static void inserirPessoa(Pessoa p)
+    public static void inserirPessoa(Pessoa p) throws SisComException
     {
-        if (p.getTipo() == Pessoa.CLIENTE)
+        if (p.getTipoPessoa() == Pessoa.CLIENTE)
         {
             // validar se o cliente já possui cadastro
-            for (Cliente c : pessoas)
+            for (Pessoa _pessoa : pessoas)
             {
-                if (c.getCpf().equals(p.getCpf()))
+            	Cliente cli = (Cliente) _pessoa;
+                if (cli.getCpf().equals(((Cliente)p).getCpf()))
                 {
                     throw new SisComException("Cliente já possui cadastro");
                 }
             }
         }
-        else if (p.getTipo() == Pessoa.VENDEDOR)
+        else if (p.getTipoPessoa() == Pessoa.VENDEDOR)
         {
             // validar a meta de vendas
-            if (p.getMetaVenda() <= 0)
+            if (((Vendedor)p).getMetaMensal() <= 0)
             {
                 throw new SisComException("Meta de venda do vendedor inválida");
             }
             
             // validar se o vendedor já possui cadastro
-            for (Vendedor v : pessoas)
+            for (Pessoa v : pessoas)
             {
-                if (v.getCpf().equals(p.getCpf()))
+                if (((Vendedor)v).getCpf().equals(((Cliente)p).getCpf()))
                 {
                     throw new SisComException("Vendedor já possui cadastro");
                 }
             }
         }
-        else if(p.getTipo() == Pessoa.FORNECEDOR)
+        else if(p.getTipoPessoa() == Pessoa.FORNECEDOR)
         {
             // validar se o fornecedor já possui cadastro
-            for (Fornecedor f : pessoas)
+            for (Pessoa f : pessoas)
             {
-                if (f.getCnpj().equals(p.getCnpj()))
+                if (((Fornecedor)f).getCnpj().equals(((Fornecedor)p).getCnpj()))
                 {
                     throw new SisComException("Fornecedor já possui cadastro");
                 }
@@ -68,36 +71,36 @@ public class Comercial
         pessoas.add(p);
     }
     
-    public static void excluirPessoa(Pessoa p)
+    public static void excluirPessoa(Pessoa p) throws SisComException
     {
-        if (p.getTipo() == Pessoa.CLIENTE)
+        if (p.getTipoPessoa() == Pessoa.CLIENTE)
         {
             // verificar se o cliente tem venda realizada
             for (Venda v : vendas)
             {
-                if (v.getCliente().getCpf().equal(p.getCpf()))
+                if (v.getCliente().getCpf().equals(((Cliente)p).getCpf()))
                 {
                     throw new SisComException("Cliente não pode ser excluido");
                 }
             }
         }
-        else if (p.getTipo() == Pessoa.VENDEDOR)
+        else if (p.getTipoPessoa() == Pessoa.VENDEDOR)
         {
             // verificar se o vendedor tem venda registrada
             for (Venda v : vendas)
             {
-                if (v.getVendedor().getCpf().equals(p.getCpf()))
+                if (v.getVendedor().getCpf().equals(((Cliente)p).getCpf()))
                 {
                     throw new SisComException("Vendedor não pode ser excluido");
                 }
             }
         }
-        else if(p.getTipo() == Pessoa.FORNECEDOR)
+        else if(p.getTipoPessoa() == Pessoa.FORNECEDOR)
         {
             // verificar se o fornecedor tem compra realizada
             for (Compra c : compras)
             {
-                if(c.getFornecedor().getCnpf().equals(p.getCnpj()))
+                if(c.getFornecedor().getCnpj().equals(((Fornecedor)p).getCnpj()))
                 {
                     throw new SisComException("Fornecedor não pode ser excluido");
                 }
